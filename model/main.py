@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pytesseract
 import cv2
 
+
 def open_image(img_path):
     carplate_img = cv2.imread(img_path)
     carplate_img = cv2.cvtColor(carplate_img, cv2.COLOR_BGR2RGB)
@@ -32,7 +33,7 @@ def enlarge_img(image, scale_precent):
 
 def main():
     carplate_img_rgb = open_image(
-        img_path='/Users/floyz/VSCode/Python/project-mars/model/data/car1.jpeg')
+        img_path='/Users/floyz/VSCode/Python/project-mars/model/data/car2.jpeg')
     carplate_hear_cascade = cv2.CascadeClassifier(
         '/Users/floyz/VSCode/Python/project-mars/model/hear/hear_cascade_russin_plate_number.xml')
 
@@ -48,11 +49,11 @@ def main():
     plt.imshow(carplate_extract_img_gray, cmap='gray')
     plt.show()
 
-    # pytesseract.pytesseract.tesseract_cmd = r'/opt/homebrew/Cellar/tesseract/5.3.3/bin/'
-    pytesseract.pytesseract.tesseract_cmd = r'/opt/homebrew/bin/tesseract'
+    # pytesseract.pytesseract.tesseract_cmd = r'/opt/homebrew/bin/tesseract'
 
     print('Номер автомобиля: ', pytesseract.image_to_string(
-        carplate_extract_img_gray, config='--psm 6 --oem 3 -c tessedit char whitelist=ABCDEFGHIJKLMNOPORSTUVWXYZ0123456789')
+        carplate_extract_img_gray,
+        config='--psm 6 --oem 3 -c "tessedit_char_whitelist=ABCDEFGHIJKLMNOPORSTUVWXYZ0123456789"')
     )
 
 
