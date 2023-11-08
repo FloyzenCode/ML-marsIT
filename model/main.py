@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import pytesseract
 import cv2
 
-
 def open_image(img_path):
     carplate_img = cv2.imread(img_path)
     carplate_img = cv2.cvtColor(carplate_img, cv2.COLOR_BGR2RGB)
@@ -10,7 +9,6 @@ def open_image(img_path):
     plt.imshow(carplate_img)
     plt.show()
     return carplate_img
-
 
 def carplate_extract(image, carplate_hear_cascade):
     carplate_rects = carplate_hear_cascade.detectMultiScale(
@@ -21,7 +19,6 @@ def carplate_extract(image, carplate_hear_cascade):
 
     return carplate_img
 
-
 def enlarge_img(image, scale_precent):
     height = int(image.shape[0] * scale_precent / 100)
     width = int(image.shape[1] * scale_precent / 100)
@@ -30,12 +27,11 @@ def enlarge_img(image, scale_precent):
     resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
     return resized_image
 
-
 def main():
     carplate_img_rgb = open_image(
-        img_path='/Users/floyz/VSCode/Python/project-mars/model/data/car2.jpeg')
+        img_path='/Users/floyz/VSCode/Python/ML-marsIT/model/data/car2.jpeg')
     carplate_hear_cascade = cv2.CascadeClassifier(
-        '/Users/floyz/VSCode/Python/project-mars/model/hear/hear_cascade_russin_plate_number.xml')
+        '/Users/floyz/VSCode/Python/ML-marsIT/model/hear/hear_cascade_russin_plate_number.xml')
 
     carplate_extract_img = carplate_extract(
         carplate_img_rgb, carplate_hear_cascade)
@@ -55,7 +51,6 @@ def main():
         carplate_extract_img_gray,
         config='--psm 6 --oem 3 -c "tessedit_char_whitelist=ABCDEFGHIJKLMNOPORSTUVWXYZ0123456789"')
     )
-
 
 if __name__ == '__main__':
     main()
